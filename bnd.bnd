@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE PROCESS
+#
+Bundle-Name: iDempiere Process
+Import-Package: *
+Export-Package: org.compiere.process*
