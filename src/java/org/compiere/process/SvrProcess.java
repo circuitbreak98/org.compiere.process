@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.compiere.model.IProcessInfo;
+import org.compiere.model.IProcessInfoParameter;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.DB;
@@ -84,7 +86,7 @@ public abstract class SvrProcess implements ProcessCall
 	}   //  SvrProcess
 
 	private Properties  		m_ctx;
-	private ProcessInfo			m_pi;
+	private IProcessInfo			m_pi;
 
 	/**	Logger							*/
 	protected CLogger			log = CLogger.getCLogger (getClass());
@@ -113,7 +115,7 @@ public abstract class SvrProcess implements ProcessCall
 	 *  @return true if the next process should be performed
 	 * 	@see org.compiere.process.ProcessCall#startProcess(Properties, ProcessInfo, Trx)
 	 */
-	public final boolean startProcess (Properties ctx, ProcessInfo pi, Trx trx)
+	public final boolean startProcess (Properties ctx, IProcessInfo pi, Trx trx)
 	{
 		//  Preparation
 		m_ctx = ctx == null ? Env.getCtx() : ctx;
@@ -348,7 +350,7 @@ public abstract class SvrProcess implements ProcessCall
 	 *  Get Process Info
 	 *  @return Process Info
 	 */
-	public ProcessInfo getProcessInfo()
+	public IProcessInfo getProcessInfo()
 	{
 		return m_pi;
 	}   //  getProcessInfo
@@ -454,9 +456,9 @@ public abstract class SvrProcess implements ProcessCall
 	 * 	Get Parameter
 	 *	@return parameter
 	 */
-	protected ProcessInfoParameter[] getParameter()
+	protected IProcessInfoParameter[] getParameter()
 	{
-		ProcessInfoParameter[] retValue = m_pi.getParameter();
+		IProcessInfoParameter[] retValue = m_pi.getParameter();
 		if (retValue == null)
 		{
 			ProcessInfoUtil.setParameterFromDB(m_pi);

@@ -18,6 +18,7 @@ package org.compiere.process;
 
 import java.util.Properties;
 
+import org.compiere.model.IProcessInfo;
 import org.idempiere.common.util.Trx;
 
 /**
@@ -43,7 +44,7 @@ public interface ProcessCall
 	 *  @param trx	transaction
 	 *  @return true if the next process should be performed
 	 */
-	public boolean startProcess (Properties ctx, ProcessInfo pi, Trx trx);
+	public boolean startProcess (Properties ctx, IProcessInfo pi, Trx trx);
 
 	/**
 	 * @param processMonitor

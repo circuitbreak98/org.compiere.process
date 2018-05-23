@@ -28,6 +28,8 @@ import java.util.logging.Level;
 
 import javax.script.ScriptEngine;
 
+import org.compiere.model.IProcessInfo;
+import org.compiere.model.IProcessInfoParameter;
 import org.compiere.rule.MRule;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.DB;
@@ -58,7 +60,7 @@ public final class ProcessUtil {
 	 * @param trx
 	 * @return boolean
 	 */
-	public static boolean startDatabaseProcedure (ProcessInfo processInfo, String ProcedureName, Trx trx) {
+	public static boolean startDatabaseProcedure (IProcessInfo processInfo, String ProcedureName, Trx trx) {
 		return startDatabaseProcedure(processInfo, ProcedureName, trx, true);
 	}
 
@@ -69,7 +71,7 @@ public final class ProcessUtil {
 	 * @param managedTrx false if trx is managed by caller
 	 * @return boolean
 	 */
-	public static boolean startDatabaseProcedure (ProcessInfo processInfo, String ProcedureName, Trx trx, boolean managedTrx) {
+	public static boolean startDatabaseProcedure (IProcessInfo processInfo, String ProcedureName, Trx trx, boolean managedTrx) {
 		String sql = "{call " + ProcedureName + "(?)}";
 		String trxName = trx != null ? trx.getTrxName() : null;
 		CallableStatement cstmt = null;
@@ -116,7 +118,7 @@ public final class ProcessUtil {
 	 * @param trx
 	 * @return boolean
 	 */
-	public static boolean startJavaProcess(Properties ctx, ProcessInfo pi, Trx trx) {
+	public static boolean startJavaProcess(Properties ctx, IProcessInfo pi, Trx trx) {
 		return startJavaProcess(ctx, pi, trx, true);
 	}
 
@@ -127,7 +129,7 @@ public final class ProcessUtil {
 	 * @param managedTrx false if trx is managed by caller
 	 * @return boolean
 	 */
-	public static boolean startJavaProcess(Properties ctx, ProcessInfo pi, Trx trx, boolean managedTrx) {
+	public static boolean startJavaProcess(Properties ctx, IProcessInfo pi, Trx trx, boolean managedTrx) {
 		return startJavaProcess(ctx, pi, trx, managedTrx, null);
 	}
 	
@@ -138,7 +140,7 @@ public final class ProcessUtil {
 	 * @param managedTrx false if trx is managed by caller
 	 * @return boolean
 	 */
-	public static boolean startJavaProcess(Properties ctx, ProcessInfo pi, Trx trx, boolean managedTrx, IProcessUI processMonitor) {
+	public static boolean startJavaProcess(Properties ctx, IProcessInfo pi, Trx trx, boolean managedTrx, IProcessUI processMonitor) {
 		String className = pi.getClassName();
 		if (className == null) {
 			MProcess proc = new MProcess(ctx, pi.getAD_Process_ID(), trx.getTrxName());
@@ -189,7 +191,7 @@ public final class ProcessUtil {
 		return success;
 	}
 
-	public static boolean startScriptProcess(Properties ctx, ProcessInfo pi, Trx trx) {
+	public static boolean startScriptProcess(Properties ctx, IProcessInfo pi, Trx trx) {
 		String msg = null;
 		boolean success = true;
 		try
@@ -229,7 +231,7 @@ public final class ProcessUtil {
 			engine.put(MRule.ARGUMENTS_PREFIX + "AD_PInstance_ID", pi.getAD_PInstance_ID());
 			engine.put(MRule.ARGUMENTS_PREFIX + "Table_ID", pi.getTable_ID());
 			// Add process parameters
-			ProcessInfoParameter[] para = pi.getParameter();
+			IProcessInfoParameter[] para = pi.getParameter();
 			if (para == null) {
 				ProcessInfoUtil.setParameterFromDB(pi);
 				para = pi.getParameter();

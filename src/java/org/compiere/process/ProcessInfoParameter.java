@@ -16,6 +16,8 @@
  *****************************************************************************/
 package org.compiere.process;
 
+import org.compiere.model.IProcessInfoParameter;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -30,7 +32,7 @@ import java.sql.Timestamp;
  * @author Teo Sarca, www.arhipac.ro
  * 			<li>FR [ 2430845 ] Add ProcessInfoParameter.getParameterAsBoolean method
  */
-public class ProcessInfoParameter implements Serializable
+public class ProcessInfoParameter implements Serializable, IProcessInfoParameter
 {
 	/**
 	 * 

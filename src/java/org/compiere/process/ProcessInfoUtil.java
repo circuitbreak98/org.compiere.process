@@ -22,6 +22,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import org.compiere.model.IProcessInfo;
+import org.compiere.model.IProcessInfoLog;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.DB;
 import org.idempiere.common.util.Env;
@@ -44,7 +46,7 @@ public class ProcessInfoUtil
 	 *  Fill Summary and success in ProcessInfo
 	 * 	@param pi process info
 	 */
-	public static void setSummaryFromDB (ProcessInfo pi)
+	public static void setSummaryFromDB (IProcessInfo pi)
 	{
 	//	s_log.fine("setSummaryFromDB - AD_PInstance_ID=" + pi.getAD_PInstance_ID());
 		//
@@ -150,9 +152,9 @@ public class ProcessInfoUtil
 	 *  Create Process Log
 	 * 	@param pi process info
 	 */
-	public static void saveLogToDB (ProcessInfo pi)
+	public static void saveLogToDB (IProcessInfo pi)
 	{
-		ProcessInfoLog[] logs = pi.getLogs();
+		IProcessInfoLog[] logs = pi.getLogs();
 		if (logs == null || logs.length == 0)
 		{
 	//		s_log.fine("saveLogToDB - No Log");
@@ -204,7 +206,7 @@ public class ProcessInfoUtil
 	 *  Set Parameter of Process (and Client/User)
 	 * 	@param pi Process Info
 	 */
-	public static void setParameterFromDB (ProcessInfo pi)
+	public static void setParameterFromDB (IProcessInfo pi)
 	{
 		ArrayList<ProcessInfoParameter> list = new ArrayList<ProcessInfoParameter>();
 		String sql = "SELECT p.ParameterName,"         			    	//  1

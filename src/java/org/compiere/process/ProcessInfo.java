@@ -23,6 +23,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import org.compiere.model.IProcessInfo;
+import org.compiere.model.IProcessInfoLog;
+import org.compiere.model.IProcessInfoParameter;
 import org.compiere.orm.PO;
 import org.compiere.util.DisplayType;
 import org.compiere.util.Msg;
@@ -38,7 +41,7 @@ import org.idempiere.common.util.Util;
  *  @author victor.perez@e-evolution.com 
  *  @see FR 1906632 http://sourceforge.net/tracker/?func=detail&atid=879335&aid=1906632&group_id=176962
  */
-public class ProcessInfo implements Serializable
+public class ProcessInfo implements Serializable, IProcessInfo
 {
 
 	/**
@@ -114,10 +117,10 @@ public class ProcessInfo implements Serializable
 	private boolean				m_timeout = false;
 
 	/**	Log Info					*/
-	private ArrayList<ProcessInfoLog> m_logs = null;
+	private ArrayList<IProcessInfoLog> m_logs = null;
 
 	/**	Log Info					*/
-	private ProcessInfoParameter[]	m_parameter = null;
+	private IProcessInfoParameter[]	m_parameter = null;
 	
 	/** Transaction Name 			*/
 	private String				m_transactionName = null;
@@ -225,6 +228,7 @@ public class ProcessInfo implements Serializable
 	 * @param translatedSummary String
 	 * @param error boolean
 	 */
+	@Override
 	public void setSummary (String translatedSummary, boolean error)
 	{
 		setSummary (translatedSummary);
@@ -319,7 +323,7 @@ public class ProcessInfo implements Serializable
 			else if (i > 0)
 				sb.append("\n");
 			//
-			ProcessInfoLog log = m_logs.get(i);
+			IProcessInfoLog log = m_logs.get(i);
 			/**
 			if (log.getP_ID() != 0)
 				sb.append(html ? "<td>" : "")
@@ -572,7 +576,7 @@ public class ProcessInfo implements Serializable
 	 * 	Get Parameter
 	 *	@return Parameter Array
 	 */
-	public ProcessInfoParameter[] getParameter()
+	public IProcessInfoParameter[] getParameter()
 	{
 		return m_parameter;
 	}	//	getParameter
@@ -581,7 +585,7 @@ public class ProcessInfo implements Serializable
 	 * 	Set Parameter
 	 *	@param parameter Parameter Array
 	 */
-	public void setParameter (ProcessInfoParameter[] parameter)
+	public void setParameter (IProcessInfoParameter[] parameter)
 	{
 		m_parameter = parameter;
 	}	//	setParameter
@@ -626,12 +630,12 @@ public class ProcessInfo implements Serializable
 	 * 	Add to Log
 	 *	@param logEntry log entry
 	 */
-	public void addLog (ProcessInfoLog logEntry)
+	public void addLog (IProcessInfoLog logEntry)
 	{
 		if (logEntry == null)
 			return;
 		if (m_logs == null)
-			m_logs = new ArrayList<ProcessInfoLog>();
+			m_logs = new ArrayList<IProcessInfoLog>();
 		m_logs.add (logEntry);
 	}	//	addLog
 
@@ -672,7 +676,7 @@ public class ProcessInfo implements Serializable
 	 * Method getLogList
 	 * @return ArrayList
 	 */
-	public ArrayList<ProcessInfoLog> getLogList()
+	public ArrayList<IProcessInfoLog> getLogList()
 	{
 		return m_logs;
 	}
@@ -680,7 +684,7 @@ public class ProcessInfo implements Serializable
 	 * Method setLogList
 	 * @param logs ArrayList
 	 */
-	public void setLogList (ArrayList<ProcessInfoLog> logs)
+	public void setLogList (ArrayList<IProcessInfoLog> logs)
 	{
 		m_logs = logs;
 	}

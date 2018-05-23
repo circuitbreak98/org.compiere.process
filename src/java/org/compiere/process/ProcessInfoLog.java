@@ -16,6 +16,8 @@
  *****************************************************************************/
 package org.compiere.process;
 
+import org.compiere.model.IProcessInfoLog;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -26,7 +28,7 @@ import java.sql.Timestamp;
  *  @author Jorg Janke
  *  @version $Id: ProcessInfoLog.java,v 1.3 2006/07/30 00:54:44 jjanke Exp $
  */
-public class ProcessInfoLog implements Serializable
+public class ProcessInfoLog implements Serializable, IProcessInfoLog
 {
 	/**
 	 * 
