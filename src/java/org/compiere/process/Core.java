@@ -58,7 +58,7 @@ public class Core {
 					return process;
 			}
 		}
-		return null; 		
+		return new DefaultProcessFactory().newProcessInstance(processId);
 	}
 
 }

@@ -20,6 +20,7 @@ package org.compiere.process;
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.compiere.model.I_AD_Process;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
@@ -170,6 +171,7 @@ public class X_AD_Process extends PO implements I_AD_Process, I_Persistent
 		return ii.intValue();
 	}
 
+	@JsonIgnore
 	public org.compiere.model.I_AD_PrintFormat getAD_PrintFormat() throws RuntimeException
     {
 		return (org.compiere.model.I_AD_PrintFormat)MTable.get(getCtx(), org.compiere.model.I_AD_PrintFormat.Table_Name)

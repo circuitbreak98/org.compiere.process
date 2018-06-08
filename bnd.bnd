@@ -2,5 +2,6 @@
 #   ORG COMPIERE PROCESS
 #
 Bundle-Name: iDempiere Process
-Import-Package: *
+Import-Package: !org.compiere.process*, *
 Export-Package: org.compiere.process*
+DynamicImport-Package: *
